@@ -1,0 +1,15 @@
+FROM microsoft/aspnetcore-build:2.0
+ARG BUILD_CONFIGURATION=Debug
+ENV ASPNETCORE_ENVIRONMENT=Development
+ENV DOTNET_USE_POLLING_FILE_WATCHER=true
+EXPOSE 80
+
+WORKDIR /src
+COPY ["AspNetWebpack/AspNetWebpack.csproj", "AspNetWebpack/"]
+
+RUN dotnet restore "AspNetWebpack/AspNetWebpack.csproj"
+COPY . .
+WORKDIR "/src/AspNetWebpack"
+RUN dotnet build --no-restore "AspNetWebpack.csproj" -c $BUILD_CONFIGURATION
+
+ENTRYPOINT ["dotnet", "run", "--no-build", "--no-launch-profile", "-c", "$BUILD_CONFIGURATION", "--"]

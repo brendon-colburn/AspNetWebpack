@@ -25,10 +25,7 @@ module.exports = {
                     loader: 'extract-loader'
                 },
                 {
-                    loader: "css-loader",
-                    options: {
-                        minimize: true || {/* or CSSNano Options see http://cssnano.co/guides/ */ }
-                    }
+                    loader: "css-loader"
                 },
                 {
                     loader: "sass-loader"
